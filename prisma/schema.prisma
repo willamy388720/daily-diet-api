@@ -9,3 +9,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+
+  snacks Snack[]
+
+  @@map("users")
+}
+
+model Snack {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  date        DateTime
+  hour        DateTime
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("snacks")
+}
