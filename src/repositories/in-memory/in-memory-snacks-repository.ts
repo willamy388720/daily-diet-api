@@ -5,6 +5,26 @@ import { randomUUID } from "node:crypto";
 export class InMemorySnacksRepository implements SnacksRepository {
   public items: Snack[] = [];
 
+  async save(snack: Snack) {
+    const snackIndex = this.items.findIndex((item) => item.id === snack.id);
+
+    if (snackIndex >= 0) {
+      this.items[snackIndex] = snack;
+    }
+
+    return snack;
+  }
+
+  async findById(id: string) {
+    const snack = this.items.find((item) => item.id === id);
+
+    if (!snack) {
+      return null;
+    }
+
+    return snack;
+  }
+
   async create(data: Prisma.SnackUncheckedCreateInput) {
     const snack = {
       id: randomUUID(),
