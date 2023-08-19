@@ -5,6 +5,10 @@ import { randomUUID } from "node:crypto";
 export class InMemorySnacksRepository implements SnacksRepository {
   public items: Snack[] = [];
 
+  async findSnacksByUser(userId: string) {
+    return this.items.filter((item) => item.user_id === userId);
+  }
+
   async destroy(snack: Snack) {
     const snackIndex = this.items.findIndex((item) => item.id === snack.id);
 
