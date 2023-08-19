@@ -25,8 +25,10 @@ export class InMemorySnacksRepository implements SnacksRepository {
     return snack;
   }
 
-  async findById(id: string) {
-    const snack = this.items.find((item) => item.id === id);
+  async findByIdAndUserId(id: string, userId: string) {
+    const snack = this.items.find(
+      (item) => item.id === id && item.user_id === userId
+    );
 
     if (!snack) {
       return null;

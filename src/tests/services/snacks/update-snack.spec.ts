@@ -53,6 +53,12 @@ describe("Update Snack Service", () => {
       password_hash: await hash("123456", 6),
     });
 
+    const user_2 = await inMemoryUsersRepository.create({
+      name: "Anonimo Conhecido",
+      email: "anonimoconhecido@mail.com",
+      password_hash: await hash("123456", 6),
+    });
+
     const snack = await inMemorySnacksRepository.create({
       user_id: user.id,
       name: "Uma refeição",
@@ -65,7 +71,7 @@ describe("Update Snack Service", () => {
     expect(async () =>
       sut.execute({
         id: snack.id,
-        userId: "111",
+        userId: user_2.id,
         isOnDiet: true,
       })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);

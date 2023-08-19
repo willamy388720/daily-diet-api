@@ -4,6 +4,6 @@ export interface SnacksRepository {
   findSnacksByUser(userId: string): Promise<Snack[]>;
   destroy(snack: Snack): Promise<void>;
   save(snack: Snack): Promise<Snack>;
-  findById(id: string): Promise<Snack | null>;
+  findByIdAndUserId(id: string, userId: string): Promise<Snack | null>;
   create(data: Prisma.SnackUncheckedCreateInput): Promise<Snack>;
 }

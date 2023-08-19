@@ -38,7 +38,7 @@ export class UpdateSnackService {
       throw new ResourceNotFoundError();
     }
 
-    const snack = await this.snacksRepository.findById(id);
+    const snack = await this.snacksRepository.findByIdAndUserId(id, userId);
 
     if (!snack) {
       throw new ResourceNotFoundError();
