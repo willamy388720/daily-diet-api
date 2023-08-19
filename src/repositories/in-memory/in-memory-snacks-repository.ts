@@ -5,6 +5,32 @@ import { randomUUID } from "node:crypto";
 export class InMemorySnacksRepository implements SnacksRepository {
   public items: Snack[] = [];
 
+  async findByBestSequel(userId: string) {
+    let bestSequel = 0;
+    let sequel = 0;
+
+    const snacks = await this.findSnacksByUser(userId);
+
+    snacks.forEach((item) => {
+      if (item.is_on_diet === true) {
+        sequel += 1;
+      } else {
+        if (sequel > bestSequel) {
+          bestSequel = sequel;
+        }
+        sequel = 0;
+      }
+    });
+
+    return bestSequel;
+  }
+
+  async findByOnDiet(userId: string, onDiet: boolean) {
+    return this.items.filter(
+      (item) => item.user_id === userId && item.is_on_diet === onDiet
+    );
+  }
+
   async findSnacksByUser(userId: string) {
     return this.items.filter((item) => item.user_id === userId);
   }
