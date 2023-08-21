@@ -19,7 +19,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   try {
     const createSnackService = makeCreateSnackService();
 
-    const { snack } = await createSnackService.execute({
+    await createSnackService.execute({
       userId: request.user.sub,
       name,
       description,
