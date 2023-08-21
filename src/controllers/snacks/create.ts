@@ -28,7 +28,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       isOnDiet,
     });
 
-    return reply.status(201).send({ snack });
+    return reply.status(201).send();
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: error.message });
